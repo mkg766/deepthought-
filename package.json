@@ -1,0 +1,8 @@
+{
+  "name": "the-2d-story-method",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test"
+  }
+}

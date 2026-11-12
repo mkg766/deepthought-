@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4eee4">
+  <meta name="description" content="The 2D Story Method: how @deepthoughts.telugu1 creates Telugu animated story reels about human nature, emotions and relationships.">
+  <title>The 2D Story Method — @deepthoughts.telugu1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@1,9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4eee4;
+      --paper-deep: #ebe2d3;
+      --ink: #171614;
+      --muted: #625e57;
+      --yellow: #ffcc00;
+      --red: #d94a38;
+      --blue: #d8e6f4;
+      --white: #fffefa;
+      --line: 2px solid var(--ink);
+      --shadow: 7px 7px 0 var(--ink);
+      --content: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.65;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    :focus-visible { outline: 3px solid #3159a8; outline-offset: 4px; }
+    ::selection { background: var(--yellow); color: var(--ink); }
+    .container { width: min(var(--content), calc(100% - 40px)); margin-inline: auto; }
+    .mono { font-family: "DM Mono", monospace; }
+    .section { padding-block: 84px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font: 700 .76rem/1.4 "DM Mono", monospace;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 9px; height: 9px; border: 1px solid var(--ink); background: var(--yellow); content: ""; }
+    .marker {
+      display: inline-block;
+      padding-inline: .08em;
+      background: linear-gradient(transparent 56%, var(--yellow) 56%);
+      transform: skewY(-2deg);
+    }
+    .button {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border: var(--line);
+      padding: 12px 20px;
+      font-weight: 900;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .button:hover { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--yellow); }
+    .button-dark { background: var(--ink); color: white; box-shadow: 5px 5px 0 var(--yellow); }
+    .button-light { background: var(--white); box-shadow: 4px 4px 0 var(--ink); }
+    .section-heading { max-width: 780px; margin-bottom: 36px; }
+    .section-heading h2 {
+      margin: 16px 0 12px;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: .99;
+      letter-spacing: -.065em;
+      text-transform: uppercase;
+    }
+    .section-heading p { max-width: 640px; margin: 0; color: var(--muted); font-size: 1.05rem; }
+
+    .site-header { position: sticky; z-index: 10; top: 0; border-bottom: var(--line); background: rgb(244 238 228 / 96%); backdrop-filter: blur(12px); }
+    .navbar { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: .9rem; font-weight: 900; line-height: 1.2; text-transform: uppercase; }
+    .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border: var(--line); background: var(--yellow); font-size: 1.15rem; }
+    .nav-links { display: flex; align-items: center; gap: 24px; margin: 0; padding: 0; list-style: none; }
+    .nav-links a { font: 700 .78rem "DM Mono", monospace; text-transform: uppercase; }
+    .nav-links a:hover { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .nav-cta { min-height: 40px; padding: 7px 12px; font-size: .78rem; box-shadow: 3px 3px 0 var(--ink); }
+    .menu-toggle { display: none; width: 42px; height: 42px; border: var(--line); background: var(--yellow); cursor: pointer; font-size: 1.2rem; }
+
+    .hero { padding-block: 74px 80px; }
+    .hero-grid { display: grid; grid-template-columns: 1.04fr .96fr; align-items: center; gap: clamp(38px, 7vw, 86px); }
+    .hero h1 { margin: 20px 0; font-size: clamp(3.2rem, 7.5vw, 7rem); font-weight: 900; line-height: .88; letter-spacing: -.08em; text-transform: uppercase; }
+    .hero-copy > p { max-width: 570px; margin: 0; font-size: clamp(1.05rem, 2vw, 1.22rem); font-weight: 600; }
+    .hero-note { margin: 18px 0 26px; color: var(--red); font: 700 .82rem "DM Mono", monospace; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+    .photo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .polaroid {
+      position: relative;
+      padding: 10px;
+      border: var(--line);
+      background: var(--white);
+      box-shadow: 4px 4px 0 var(--ink);
+      transition: transform .2s ease;
+    }
+    .polaroid:hover { z-index: 1; transform: scale(1.035) rotate(0deg) !important; }
+    .polaroid:nth-child(1) { transform: rotate(-3deg); }
+    .polaroid:nth-child(2) { transform: rotate(4deg); }
+    .polaroid:nth-child(3) { transform: rotate(2deg); }
+    .polaroid:nth-child(4) { transform: rotate(-4deg); }
+    .polaroid img { width: 100%; height: clamp(180px, 28vw, 290px); border: 1px solid var(--ink); object-fit: cover; }
+    .polaroid figcaption { display: flex; justify-content: space-between; gap: 8px; padding: 9px 2px 1px; font: 700 .66rem "DM Mono", monospace; }
+    .tape { position: absolute; z-index: 1; top: -8px; left: 50%; width: 38px; height: 14px; border: 1px solid #bcb39f; background: rgb(255 226 142 / 80%); transform: translateX(-50%) rotate(2deg); }
+
+    .stats { border-block: var(--line); background: var(--ink); color: white; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stat { min-height: 112px; display: grid; align-content: center; justify-items: center; border-right: 1px solid rgb(255 255 255 / 28%); text-align: center; }
+    .stat:last-child { border-right: 0; }
+    .stat strong { color: var(--yellow); font-size: clamp(1.8rem, 3.8vw, 2.8rem); font-weight: 900; line-height: 1.1; }
+    .stat span { margin-top: 6px; font: 700 .7rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+
+    .proof-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 32px; }
+    .receipt, .profile-card { border: var(--line); box-shadow: var(--shadow); }
+    .receipt { padding: clamp(24px, 4vw, 40px); background: var(--white); font-family: "DM Mono", monospace; }
+    .receipt h3 { margin: 0; text-align: center; font-size: 1rem; }
+    .receipt-date { margin: 6px 0 22px; border-bottom: 1px dashed #888; padding-bottom: 16px; color: var(--muted); font-size: .7rem; text-align: center; }
+    .receipt-row { display: flex; justify-content: space-between; gap: 15px; border-bottom: 1px dashed #aaa; padding: 11px 0; font-size: .86rem; }
+    .receipt-row strong { font-size: 1rem; }
+    .receipt-total { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-top: 12px; border-top: 4px solid var(--ink); padding-top: 16px; font-weight: 900; text-transform: uppercase; }
+    .receipt-total strong { font-size: 1.6rem; }
+    .receipt small { display: block; margin-top: 22px; border-top: 1px solid #ddd; padding-top: 13px; color: var(--muted); font-size: .65rem; line-height: 1.6; text-align: center; }
+    .profile-card { padding: clamp(24px, 4vw, 34px); background: #171614; color: white; }
+    .profile-top { display: flex; align-items: center; gap: 15px; }
+    .avatar { width: 68px; height: 68px; display: grid; flex: 0 0 68px; place-items: center; border: 2px solid white; border-radius: 50%; background: var(--paper); font-size: 2rem; }
+    .profile-top h3 { margin: 0; font-size: 1.2rem; }
+    .profile-top p { margin: 3px 0 0; color: #d6d1ca; font-size: .84rem; }
+    .profile-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 22px 0; border-block: 1px solid #56514a; padding-block: 15px; text-align: center; }
+    .profile-numbers strong { display: block; font-size: 1.1rem; }
+    .profile-numbers span { color: #d6d1ca; font-size: .72rem; }
+    .profile-bio { margin: 0; font-size: .88rem; line-height: 1.8; }
+    .profile-link { display: inline-block; margin-top: 19px; color: var(--yellow); font: 700 .75rem "DM Mono", monospace; }
+
+    .method { border-block: var(--line); background: var(--paper-deep); }
+    .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .method-card { min-height: 215px; padding: 24px; border: var(--line); background: var(--white); box-shadow: 4px 4px 0 var(--ink); }
+    .method-number { color: var(--red); font: 700 .76rem "DM Mono", monospace; }
+    .method-card h3 { margin: 18px 0 8px; font-size: 1.38rem; line-height: 1.2; }
+    .method-card p { margin: 0; color: var(--muted); }
+
+    .contents-card { max-width: 820px; border: var(--line); border-left: 12px solid var(--red); padding: clamp(22px, 5vw, 42px); background: var(--white); box-shadow: var(--shadow); }
+    .contents-card h3 { margin: 0 0 18px; border-bottom: 1px solid #e8c1bc; padding-bottom: 14px; color: var(--red); font: italic 700 1.6rem "Fraunces", Georgia, serif; }
+    .contents-list { margin: 0; padding: 0; list-style: none; }
+    .contents-list li { display: flex; justify-content: space-between; gap: 20px; border-bottom: 1px solid #dfe7ef; padding: 12px 8px; font-weight: 600; }
+    .contents-list li span:last-child { color: #777; font: 700 .75rem "DM Mono", monospace; white-space: nowrap; }
+    .contents-foot { margin: 20px 0 0; color: var(--red); font: italic .86rem "Fraunces", Georgia, serif; text-align: center; }
+    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .tool-card { padding: 28px; border: 4px solid var(--ink); background: var(--white); box-shadow: 5px 5px 0 var(--ink); }
+    .tool-card h3 { margin: 0 0 12px; font-size: 1.55rem; }
+    .tool-card p { margin: 0; color: var(--muted); }
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .tool-tag { border: var(--line); border-radius: 999px; padding: 7px 13px; background: var(--blue); box-shadow: 2px 2px 0 var(--ink); font: 700 .76rem "DM Mono", monospace; }
+    .tool-tag:nth-child(odd) { background: var(--white); }
+
+    .offer { padding-top: 20px; }
+    .offer-card { max-width: 850px; border: 4px solid var(--ink); background: var(--white); box-shadow: 10px 10px 0 var(--ink); }
+    .offer-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 4px solid var(--ink); padding: clamp(22px, 4vw, 36px); background: var(--ink); color: white; }
+    .offer-head h3 { margin: 0 0 10px; font-size: clamp(1.55rem, 3.5vw, 2.2rem); }
+    .offer-points { display: grid; gap: 5px; margin: 0; padding: 0; color: #e4e0da; font-size: .85rem; list-style: none; }
+    .offer-points li::before { margin-right: 8px; color: var(--yellow); content: "✓"; font-weight: 900; }
+    .offer-price { min-width: 150px; border-left: 1px dashed #777; padding-left: 25px; text-align: center; }
+    .offer-price del { color: #aaa; font: .9rem "DM Mono", monospace; }
+    .offer-price strong { display: block; color: var(--yellow); font-size: 3.6rem; font-weight: 900; line-height: 1.1; }
+    .offer-price span { color: var(--yellow); font: 700 .65rem "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+    .offer-body { padding: clamp(22px, 4vw, 36px); }
+    .offer-body > p { max-width: 650px; margin: 0 0 20px; color: var(--muted); }
+    .checkout-form { display: grid; gap: 14px; }
+    .checkout-form label { display: grid; gap: 6px; font: 700 .75rem "DM Mono", monospace; text-transform: uppercase; }
+    .checkout-form input { width: 100%; min-height: 48px; border: var(--line); border-radius: 0; padding: 10px 12px; background: #fcfbf9; color: var(--ink); font: 500 1rem "DM Sans", sans-serif; text-transform: none; }
+    .checkout-form .button { width: 100%; background: var(--red); color: white; cursor: pointer; }
+    .checkout-form .button:disabled { cursor: wait; opacity: .7; }
+    .checkout-status { min-height: 1.5em; margin: 0 !important; color: var(--ink) !important; font-size: .86rem; }
+    .checkout-status[data-state="error"] { color: #a5291c !important; }
+    .download-success { margin-top: 20px; border: 2px solid #218449; padding: 18px; background: #eff8f0; }
+    .download-success h4 { margin: 0 0 5px; }
+    .download-success p { margin: 0 0 12px; font-size: .86rem; }
+    .download-success .button { width: 100%; }
+    .offer-note { margin: 14px 0 0 !important; font-size: .75rem; text-align: center; }
+
+    .faq-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .faq-card { min-height: 190px; padding: 22px; border: var(--line); box-shadow: 4px 4px 0 var(--ink); }
+    .faq-card:nth-child(odd) { background: #fcf5c7; }
+    .faq-card:nth-child(even) { background: var(--blue); }
+    .faq-card h3 { margin: 0 0 10px; font: italic 700 1.12rem/1.3 "Fraunces", Georgia, serif; }
+    .faq-card p { margin: 0; font-size: .83rem; }
+    .site-footer { border-top: var(--line); padding-block: 28px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font: 700 .7rem "DM Mono", monospace; }
+    .footer-row a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 850px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 34px; }
+      .hero h1 { font-size: clamp(3rem, 8vw, 5rem); }
+      .photo-grid { max-width: 680px; }
+      .faq-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { gap: 14px; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(var(--content), calc(100% - 32px)); }
+      .section { padding-block: 62px; }
+      .navbar { min-height: 64px; }
+      .nav-cta { display: none; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links {
+        position: absolute; top: 100%; right: 0; left: 0; display: none;
+        align-items: stretch; gap: 0; border-bottom: var(--line); background: var(--paper); padding: 7px 16px 14px;
+      }
+      .nav-links.is-open { display: flex; flex-direction: column; }
+      .nav-links a { display: block; padding: 11px 5px; }
+      .hero { padding-block: 48px 56px; }
+      .hero-grid, .proof-grid, .tools-grid { grid-template-columns: 1fr; }
+      .hero-grid { gap: 34px; }
+      .hero h1 { font-size: clamp(3.4rem, 15vw, 5.5rem); }
+      .photo-grid { max-width: 500px; margin-inline: auto; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat { min-height: 95px; }
+      .stat:nth-child(2) { border-right: 0; }
+      .stat:nth-child(-n+2) { border-bottom: 1px solid rgb(255 255 255 / 28%); }
+      .method-grid { grid-template-columns: 1fr; }
+      .method-card { min-height: 0; }
+      .offer-head { align-items: flex-start; flex-direction: column; }
+      .offer-price { display: flex; align-items: center; gap: 12px; border-top: 1px dashed #777; border-left: 0; padding: 15px 0 0; text-align: left; }
+      .offer-price strong { font-size: 2.8rem; }
+      .offer-price span { align-self: center; }
+      .footer-row { flex-direction: column; }
+    }
+    @media (max-width: 420px) {
+      .brand { max-width: 210px; font-size: .76rem; }
+      .photo-grid { gap: 12px; }
+      .polaroid { padding: 7px; }
+      .polaroid figcaption { font-size: .57rem; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .faq-card { min-height: 0; }
+      .contents-list li { font-size: .86rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="brand" href="#home">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>The 2D Story Method<br><span class="mono">@deepthoughts.telugu1</span></span>
+      </a>
+      <ul class="nav-links" id="primary-navigation">
+        <li><a href="#results">The results</a></li>
+        <li><a href="#method">The method</a></li>
+        <li><a href="#guide">The guide</a></li>
+      </ul>
+      <a class="button button-dark nav-cta" href="#guide">See the guide <span aria-hidden="true">→</span></a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-grid container">
+        <div class="hero-copy">
+          <span class="eyebrow">A Telugu 2D storytelling playbook</span>
+          <h1 id="hero-title">4 million<br><span class="marker">views.</span><br>8,009<br><span class="marker">followers.</span></h1>
+          <p>No face. No camera. Just 2D animated Telugu story reels. Here’s the step-by-step method behind <strong>@deepthoughts.telugu1</strong>—made for your phone or PC.</p>
+          <p class="hero-note">22 reels · 30 days of posting · one repeatable story format</p>
+          <div class="hero-actions">
+            <a class="button button-dark" href="#guide">Explore the guide <span aria-hidden="true">→</span></a>
+            <a class="button button-light" href="https://www.instagram.com/deepthoughts.telugu1/" target="_blank" rel="noopener noreferrer">Visit Instagram ↗</a>
+          </div>
+        </div>
+        <div class="photo-grid" aria-label="Artwork from Human Nature Stories">
+          <figure class="polaroid"><span class="tape" aria-hidden="true"></span><img src="assets/emotional-creation.jpg" alt="A thoughtful character reflecting in a quiet moment" width="768" height="1365" fetchpriority="high"><figcaption><span>QUIET THOUGHTS</span><span>01</span></figcaption></figure>
+          <figure class="polaroid"><span class="tape" aria-hidden="true"></span><img src="assets/relatable-stories.jpg" alt="Two friends sharing a warm moment" width="768" height="1365"><figcaption><span>CONNECTIONS</span><span>02</span></figcaption></figure>
+          <figure class="polaroid"><span class="tape" aria-hidden="true"></span><img src="assets/funny-character.jpg" alt="A cartoon character celebrating a small joy" width="768" height="1365"><figcaption><span>SMALL JOYS</span><span>03</span></figcaption></figure>
+          <figure class="polaroid"><span class="tape" aria-hidden="true"></span><img src="assets/channel-growth.jpg" alt="A character looking ahead toward a chart" width="768" height="1365"><figcaption><span>LIFE LESSONS</span><span>04</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Account highlights">
+      <div class="stats-grid container">
+        <div class="stat"><strong>4.0M</strong><span>Views in 30 days</span></div>
+        <div class="stat"><strong>8,009</strong><span>Followers</span></div>
+        <div class="stat"><strong>22</strong><span>Reels posted</span></div>
+        <div class="stat"><strong>30</strong><span>Days of posting</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="results" aria-labelledby="results-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">The numbers, straight from the profile</span>
+          <h2 id="results-title">Real <span class="marker">results.</span><br>Not a promise.</h2>
+          <p>A snapshot of the account details supplied for this page. Your reach and growth will depend on your content, audience and consistency.</p>
+        </div>
+        <div class="proof-grid">
+          <div class="receipt">
+            <h3>@DEEPTHOUGHTS.TELUGU1</h3>
+            <p class="receipt-date">ACCOUNT SNAPSHOT · NOVEMBER 2026</p>
+            <div class="receipt-row"><span>Days of posting</span><strong>30</strong></div>
+            <div class="receipt-row"><span>Reels posted</span><strong>22</strong></div>
+            <div class="receipt-row"><span>Total views (30 days)</span><strong>4.0M</strong></div>
+            <div class="receipt-total"><span>Followers</span><strong>8,009</strong></div>
+            <small>Figures are based on the profile information provided and are not a guarantee of future performance.</small>
+          </div>
+          <article class="profile-card" aria-label="Instagram profile preview">
+            <div class="profile-top">
+              <div class="avatar" aria-hidden="true">🧐</div>
+              <div><h3>deepthoughts.telugu1</h3><p>Human Nature Stories | Telugu</p></div>
+            </div>
+            <div class="profile-numbers">
+              <div><strong>22</strong><span>posts</span></div>
+              <div><strong>8,009</strong><span>followers</span></div>
+              <div><strong>0</strong><span>following</span></div>
+            </div>
+            <p class="profile-bio">Human psychology in simple stories 🎭<br>Emotions • Relationships • Life lessons<br>2D cartoon storytelling in Telugu 🎬<br>Follow to understand people better</p>
+            <a class="profile-link" href="https://www.instagram.com/deepthoughts.telugu1/" target="_blank" rel="noopener noreferrer">instagram.com/deepthoughts.telugu1 ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section method" id="method" aria-labelledby="method-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Phone or computer, same story</span>
+          <h2 id="method-title">A simple <span class="marker">repeatable</span> workflow.</h2>
+          <p>Build a short story one step at a time, using accessible tools and a consistent visual style.</p>
+        </div>
+        <div class="method-grid">
+          <article class="method-card"><span class="method-number">STEP 01 / SCRIPT</span><h3>Start with a human moment</h3><p>Find a relatable emotion, relationship or life lesson. Shape it into a concise Telugu story with a clear opening and payoff.</p></article>
+          <article class="method-card"><span class="method-number">STEP 02 / VISUALS + VOICE</span><h3>Bring the story to life</h3><p>Plan simple 2D cartoon scenes and a voiceover. Keep the characters expressive and the visuals focused on the story.</p></article>
+          <article class="method-card"><span class="method-number">STEP 03 / EDIT + POST</span><h3>Make it easy to watch</h3><p>Put the scenes, voice and captions together in a vertical reel. Post consistently, then learn from how people respond.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="contents-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">15-page PDF · what’s inside</span>
+          <h2 id="contents-title">The whole process, <span class="marker">step by step.</span></h2>
+          <p>A practical guide for creating 2D animated Telugu storytelling reels, even if you are new to editing.</p>
+        </div>
+        <div class="contents-card">
+          <h3>Contents</h3>
+          <ol class="contents-list">
+            <li><span>The results and account breakdown</span><span>p. 2</span></li>
+            <li><span>Why the 2D story format works</span><span>p. 4</span></li>
+            <li><span>Story ideas and a script prompt</span><span>p. 5</span></li>
+            <li><span>Generating Telugu scripts</span><span>p. 7</span></li>
+            <li><span>Finding a voiceover</span><span>p. 8</span></li>
+            <li><span>Creating 2D cartoon visuals</span><span>p. 10</span></li>
+            <li><span>Editing in Canva on phone and PC</span><span>p. 12</span></li>
+            <li><span>A posting routine for reach</span><span>p. 14</span></li>
+            <li><span>20 topic ideas and a checklist</span><span>p. 15</span></li>
+          </ol>
+          <p class="contents-foot">Prompts, practical steps and a checklist to help you get started.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="tools-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Use what you already have</span>
+          <h2 id="tools-title">Create on <span class="marker">your phone</span> or PC.</h2>
+        </div>
+        <div class="tools-grid">
+          <article class="tool-card"><h3>▯ On your phone</h3><p>Use Gemini for scripts and prompts, ElevenLabs in your browser for voice, and the Canva app to edit your reel.</p></article>
+          <article class="tool-card"><h3>▭ On your computer</h3><p>Use the same tools in your browser. A larger screen can make longer edits and reusable timelines easier.</p></article>
+        </div>
+        <div class="tool-tags" aria-label="Suggested tools"><span class="tool-tag">Gemini</span><span class="tool-tag">ChatGPT</span><span class="tool-tag">ElevenLabs</span><span class="tool-tag">Canva</span></div>
+      </div>
+    </section>
+
+    <section class="section offer" id="guide" aria-labelledby="guide-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">The 2D Story Method</span>
+          <h2 id="guide-title">Ready to make <span class="marker">your first story?</span></h2>
+        </div>
+        <article class="offer-card">
+          <div class="offer-head">
+            <div>
+              <h3>The 2D Story Method</h3>
+              <ul class="offer-points">
+                <li>15-page PDF in simple English</li>
+                <li>Phone and PC steps</li>
+                <li>Copy-and-paste prompts</li>
+                <li>20 topic ideas and a checklist</li>
+              </ul>
+            </div>
+            <div class="offer-price"><del>₹499</del><strong>₹129</strong><span>Launch price</span></div>
+          </div>
+          <div class="offer-body">
+            <p>One-time payment of ₹129 through Razorpay. The download link appears after payment is verified.</p>
+            <form class="checkout-form" id="checkout-form">
+              <label for="buyer-name">Your name
+                <input id="buyer-name" name="name" autocomplete="name" maxlength="100" required>
+              </label>
+              <label for="buyer-email">Email address
+                <input id="buyer-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+              </label>
+              <button class="button" id="pay-button" type="submit">Pay ₹129 with Razorpay <span aria-hidden="true">→</span></button>
+              <p class="checkout-status" id="checkout-status" role="status" aria-live="polite"></p>
+            </form>
+            <div class="download-success" id="download-success" hidden>
+              <h4>Payment verified</h4>
+              <p>Your guide is ready to download.</p>
+              <a class="button button-light" id="download-link" href="/api/download">Download the PDF</a>
+            </div>
+            <p class="offer-note">Checkout uses Razorpay. The site verifies payment on its server before providing the guide download. Your contact details are used only to create the order.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">A few quick answers</span>
+          <h2 id="faq-title">Before you <span class="marker">start.</span></h2>
+        </div>
+        <div class="faq-grid">
+          <article class="faq-card"><h3>I have never edited a video. Can I do this?</h3><p>The guide is written as beginner-friendly steps for both mobile and computer workflows.</p></article>
+          <article class="faq-card"><h3>Do I need to show my face?</h3><p>No. This format uses 2D cartoon visuals, a voiceover and captions.</p></article>
+          <article class="faq-card"><h3>Do I need paid apps?</h3><p>The workflow is designed around tools that offer free plans. Features and plan limits can change.</p></article>
+          <article class="faq-card"><h3>Will I get millions of views too?</h3><p>No one can promise that. These figures describe one account’s results, not a guaranteed outcome.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span>© 2026 The 2D Story Method · @deepthoughts.telugu1</span>
+      <span>Questions? <a href="https://www.instagram.com/deepthoughts.telugu1/" target="_blank" rel="noopener noreferrer">Message on Instagram ↗</a></span>
+    </div>
+  </footer>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    const menuToggle = document.querySelector("#menu-toggle");
+    const navigation = document.querySelector("#primary-navigation");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+      navigation.classList.toggle("is-open", !isOpen);
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navigation.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+      }
+    });
+
+    const checkoutForm = document.querySelector("#checkout-form");
+    const payButton = document.querySelector("#pay-button");
+    const checkoutStatus = document.querySelector("#checkout-status");
+    const downloadSuccess = document.querySelector("#download-success");
+    const downloadLink = document.querySelector("#download-link");
+
+    async function readApiResponse(response) {
+      const body = await response.text();
+      let data;
+      try {
+        data = JSON.parse(body);
+      } catch {
+        if (window.location.protocol === "file:") {
+          throw new Error("Checkout only works on the deployed website. Open your Vercel site instead of this local file preview.");
+        }
+        if (response.status === 403) {
+          throw new Error("The payment service denied this request. Open the public Vercel site and try again.");
+        }
+        throw new Error("The payment service returned an unexpected response. Please try again later.");
+      }
+      if (!data || typeof data !== "object" || Array.isArray(data)) {
+        throw new Error("The payment service returned an unexpected response. Please try again later.");
+      }
+      return data;
+    }
+
+    checkoutForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!checkoutForm.reportValidity()) return;
+
+      payButton.disabled = true;
+      checkoutStatus.dataset.state = "";
+      checkoutStatus.textContent = "Preparing your secure checkout…";
+      downloadSuccess.hidden = true;
+
+      try {
+        if (window.location.protocol === "file:") {
+          throw new Error("Checkout only works on the deployed website. Open your Vercel site instead of this local file preview.");
+        }
+        const orderResponse = await fetch("/api/create-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: checkoutForm.elements.name.value.trim(),
+            email: checkoutForm.elements.email.value.trim(),
+          }),
+        });
+        const order = await readApiResponse(orderResponse);
+        if (!orderResponse.ok) {
+          if (order.error === "guide_delivery_not_configured") {
+            throw new Error("Online checkout is not available yet. The guide file has not been added.");
+          }
+          if (order.error === "invalid_customer_details") {
+            throw new Error("Please enter a valid name and email address.");
+          }
+          throw new Error("Could not start checkout. Please try again later.");
+        }
+        if (!window.Razorpay) {
+          throw new Error("Razorpay Checkout could not load. Check your connection and try again.");
+        }
+
+        const checkout = new Razorpay({
+          key: order.keyId,
+          amount: order.amount,
+          currency: order.currency,
+          name: "The 2D Story Method",
+          description: "15-page Telugu story creation guide",
+          order_id: order.orderId,
+          prefill: {
+            name: checkoutForm.elements.name.value.trim(),
+            email: checkoutForm.elements.email.value.trim(),
+          },
+          theme: { color: "#d94a38" },
+          handler: async (payment) => {
+            checkoutStatus.textContent = "Verifying your payment…";
+            try {
+              const verificationResponse = await fetch("/api/verify-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  orderId: payment.razorpay_order_id,
+                  paymentId: payment.razorpay_payment_id,
+                  signature: payment.razorpay_signature,
+                }),
+              });
+              const verification = await readApiResponse(verificationResponse);
+              if (!verificationResponse.ok) {
+                throw new Error("Payment could not be verified yet. Please contact us before trying again.");
+              }
+              downloadLink.href = `/api/download?token=${encodeURIComponent(verification.downloadToken)}`;
+              downloadSuccess.hidden = false;
+              checkoutStatus.textContent = "Payment verified. Your download is ready.";
+            } catch (error) {
+              checkoutStatus.dataset.state = "error";
+              checkoutStatus.textContent = error.message || "Payment verification failed. Please contact us.";
+            }
+          },
+          modal: {
+            ondismiss: () => {
+              payButton.disabled = false;
+              checkoutStatus.textContent = "Checkout closed. You can try again when ready.";
+            },
+          },
+        });
+        checkout.on("payment.failed", () => {
+          payButton.disabled = false;
+          checkoutStatus.dataset.state = "error";
+          checkoutStatus.textContent = "Payment did not complete. Please try again.";
+        });
+        checkout.open();
+        checkoutStatus.textContent = "";
+      } catch (error) {
+        checkoutStatus.dataset.state = "error";
+        checkoutStatus.textContent = error.message || "Checkout could not start. Please try again.";
+        payButton.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
